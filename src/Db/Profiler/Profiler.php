@@ -2,11 +2,12 @@
 
 namespace BjyProfiler\Db\Profiler;
 
+use BjyProfiler\Exception\RuntimeException;
 use Zend\Db\Adapter\Profiler\ProfilerInterface;
+use Zend\Db\Adapter\StatementContainerInterface;
 
 class Profiler implements ProfilerInterface
 {
-
     /**
      * Logical OR these together to get a proper query type filter
      */
@@ -19,9 +20,9 @@ class Profiler implements ProfilerInterface
     const TRANSACTION = 64;
 
     /**
-     * @var array
+     * @var Query[]
      */
-    protected $profiles = array();
+    protected $profiles = [];
 
     /**
      * @var boolean
@@ -33,46 +34,69 @@ class Profiler implements ProfilerInterface
      */
     protected $filterTypes;
 
+    /**
+     * Profiler constructor.
+     * @param bool $enabled
+     */
     public function __construct($enabled = true)
     {
         $this->enabled = $enabled;
         $this->filterTypes = 127;
     }
 
+    /**
+     * @return static
+     */
     public function enable()
     {
         $this->enabled = true;
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function disable()
     {
         $this->enabled = false;
         return $this;
     }
 
+    /**
+     * @param int $queryTypes
+     * @return static
+     */
     public function setFilterQueryType($queryTypes = null)
     {
         $this->filterTypes = $queryTypes;
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getFilterQueryType()
     {
         return $this->filterTypes;
     }
 
+    /**
+     * @param string     $sql
+     * @param array|null $parameters
+     * @param array|null $stack
+     * @return int|bool
+     */
     public function startQuery($sql, $parameters = null, $stack = null)
     {
-        if (!$this->enabled) {
-            return null;
+        if (! $this->enabled) {
+            return false;
         }
 
-        if (is_null($stack)) {
+        if (null === $stack) {
             if (version_compare('5.3.6', phpversion(), '<=')) {
                 $stack = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
             } else {
-                $stack = array();
+                $stack = [];
             }
         }
 
@@ -103,44 +127,71 @@ class Profiler implements ProfilerInterface
         return key($this->profiles);
     }
 
+    /**
+     * @return bool
+     */
     public function endQuery()
     {
-        if (!$this->enabled) {
+        if (! $this->enabled) {
             return false;
+        }
+
+        if (empty($this->profiles)) {
+            throw new RuntimeException('Query was not started.');
         }
 
         end($this->profiles)->end();
         return true;
     }
 
+    /**
+     * @param int|null $queryTypes
+     * @return Query[]
+     */
     public function getQueryProfiles($queryTypes = null)
     {
-        $profiles = array();
+        if (empty($this->profiles)) {
+            return [];
+        }
 
-        if (count($this->profiles)) {
-            foreach ($this->profiles as $id => $profile) {
-                if ($queryTypes === null) {
-                    $queryTypes = $this->filterTypes;
-                }
+        $profiles = [];
 
-                if ($profile->getQueryType() & $queryTypes) {
-                    $profiles[$id] = $profile;
-                }
+        foreach ($this->profiles as $id => $profile) {
+            if (null === $queryTypes) {
+                $queryTypes = $this->filterTypes;
+            }
+
+            if ($profile->getQueryType() & $queryTypes) {
+                $profiles[$id] = $profile;
             }
         }
 
         return $profiles;
     }
 
+    /**
+     * @param string|StatementContainerInterface $target
+     * @return static
+     */
     public function profilerStart($target)
     {
-        $sql = $target->getSql();
-        $params = $target->getParameterContainer()->getNamedArray();
+        if ($target instanceof StatementContainerInterface) {
+            $sql = $target->getSql();
+            $params = $target->getParameterContainer()->getNamedArray();
+        } else {
+            $sql = $target;
+            $params = [];
+        }
         $this->startQuery($sql, $params);
+        return $this;
     }
 
+    /**
+     * @return static
+     */
     public function profilerFinish()
     {
         $this->endQuery();
+        return $this;
     }
 }

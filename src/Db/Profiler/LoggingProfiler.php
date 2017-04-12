@@ -7,7 +7,6 @@
 
 namespace BjyProfiler\Db\Profiler;
 
-
 use Zend\Log\Logger;
 
 class LoggingProfiler extends Profiler
@@ -36,35 +35,60 @@ class LoggingProfiler extends Profiler
      * @var array
      * @see Query
      */
-    protected $parametersStart = array('sql', 'parameters');
+    protected $parametersStart = ['sql', 'parameters'];
     /**
      * Query parameters to log on query finish
      *
      * @var array
      * @see Query
      */
-    protected $parametersFinish = array('elapsed');
+    protected $parametersFinish = ['elapsed'];
 
-    public function __construct(Logger $logger, $enabled = true, array $options = array())
+    /**
+     * LoggingProfiler constructor.
+     * @param Logger $logger
+     * @param bool   $enabled
+     * @param array  $options
+     */
+    public function __construct(Logger $logger, $enabled = true, array $options = [])
     {
         parent::__construct($enabled);
         $this->setLogger($logger);
 
-        if (isset($options['priority'])) $this->setPriority($options['priority']);
-        if (isset($options['maxProfiles'])) $this->setMaxProfiles($options['maxProfiles']);
-        if (isset($options['parametersStart'])) $this->setParametersStart($options['parametersStart']);
-        if (isset($options['parametersFinish'])) $this->setParametersFinish($options['parametersFinish']);
+        if (isset($options['priority'])) {
+            $this->setPriority($options['priority']);
+        }
+        if (isset($options['maxProfiles'])) {
+            $this->setMaxProfiles($options['maxProfiles']);
+        }
+        if (isset($options['parametersStart'])) {
+            $this->setParametersStart($options['parametersStart']);
+        }
+        if (isset($options['parametersFinish'])) {
+            $this->setParametersFinish($options['parametersFinish']);
+        }
     }
 
+    /**
+     * @param string $sql
+     * @param null   $parameters
+     * @param null   $stack
+     * @return int|bool
+     */
     public function startQuery($sql, $parameters = null, $stack = null) {
-        parent::startQuery($sql, $parameters, $stack);
+        $result = parent::startQuery($sql, $parameters, $stack);
         $this->logStart();
+        return $result;
     }
 
+    /**
+     * @return bool
+     */
     public function endQuery() {
-        parent::endQuery();
+        $result = parent::endQuery();
         $this->logEnd();
         $this->trimToMaxQueries();
+        return $result;
     }
 
     private function logStart() {
@@ -96,10 +120,13 @@ class LoggingProfiler extends Profiler
 
     /**
      * @param int $level
+     * @return static
      */
     public function setPriority($level)
     {
         $this->priority = $level;
+
+        return $this;
     }
 
     /**
@@ -111,15 +138,17 @@ class LoggingProfiler extends Profiler
     }
 
     /**
-     * @param \Zend\Log\Logger $logger
+     * @param Logger $logger
+     * @return static
      */
     public function setLogger(Logger $logger)
     {
         $this->logger = $logger;
+        return $this;
     }
 
     /**
-     * @return \Zend\Log\Logger
+     * @return Logger
      */
     public function getLogger()
     {
@@ -128,10 +157,12 @@ class LoggingProfiler extends Profiler
 
     /**
      * @param int $maxProfiles
+     * @return static
      */
     public function setMaxProfiles($maxProfiles)
     {
         $this->maxProfiles = $maxProfiles;
+        return $this;
     }
 
     /**
@@ -144,10 +175,12 @@ class LoggingProfiler extends Profiler
 
     /**
      * @param array $parametersFinish
+     * @return static
      */
     public function setParametersFinish(array $parametersFinish)
     {
         $this->parametersFinish = $parametersFinish;
+        return $this;
     }
 
     /**
@@ -160,10 +193,12 @@ class LoggingProfiler extends Profiler
 
     /**
      * @param array $parametersStart
+     * @return static
      */
     public function setParametersStart(array $parametersStart)
     {
         $this->parametersStart = $parametersStart;
+        return $this;
     }
 
     /**

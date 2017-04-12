@@ -6,3 +6,6 @@ nbproject
 .idea
 .project
 .settings
+/vendor/
+phpunit.xml
+/build/
