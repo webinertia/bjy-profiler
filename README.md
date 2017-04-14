@@ -2,8 +2,8 @@ BjyProfiler
 ===========
 
 Master:
-[![Build Status](https://travis-ci.org/andrey-mokhov/BjyProfiler.svg?branch=master)](https://travis-ci.org/andrey-mokhov/BjyProfiler)
-[![Coverage Status](https://coveralls.io/repos/github/andrey-mokhov/BjyProfiler/badge.svg?branch=master)](https://coveralls.io/github/andrey-mokhov/BjyProfiler)
+[![Build Status](https://travis-ci.org/andrey-mokhov/bjy-profiler.svg?branch=master)](https://travis-ci.org/andrey-mokhov/bjy-profiler)
+[![Coverage Status](https://coveralls.io/repos/github/andrey-mokhov/bjy-profiler/badge.svg?branch=master)](https://coveralls.io/github/andrey-mokhov/bjy-profiler)
 
 Provides Zend\Db adapters with extensions for database query profiling, as well as a profiler similar to ZF1's Zend\_Db\_Profiler.
 I ported much of this code from ZF1's Zend_Db.
