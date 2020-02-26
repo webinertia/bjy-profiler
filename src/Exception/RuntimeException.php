@@ -2,9 +2,9 @@
 
 namespace BjyProfiler\Exception;
 
-use Zend\Stdlib\Exception\RuntimeException as ZendStdlibRuntimeException;
+use Laminas\Stdlib\Exception\RuntimeException as LaminasStdlibRuntimeException;
 
-class RuntimeException extends ZendStdlibRuntimeException
+class RuntimeException extends LaminasStdlibRuntimeException
 {
 
 }

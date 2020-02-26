@@ -4,13 +4,13 @@ namespace BjyProfilerTest;
 
 use BjyProfiler\Db\Adapter\ProfilingAdapter;
 use BjyProfiler\Db\Adapter\ProfilingAdapterFactory;
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\Adapter\AdapterInterface;
-use Zend\Db\Sql\Sql;
-use Zend\Log\Logger;
-use Zend\Log\Writer\Mock;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Db\Adapter\Adapter;
+use Laminas\Db\Adapter\AdapterInterface;
+use Laminas\Db\Sql\Sql;
+use Laminas\Log\Logger;
+use Laminas\Log\Writer\Mock;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\ServiceManager\ServiceManager;
 
 class IntegrationTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,7 +25,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        if (! extension_loaded('pdo_sqlite') || ! getenv('TESTS_ZEND_DB_ADAPTER_DRIVER_SQLITE_ENABLED')) {
+        if (! extension_loaded('pdo_sqlite') || ! getenv('TESTS_LAMINAS_DB_ADAPTER_DRIVER_SQLITE_ENABLED')) {
             $this->markTestSkipped('I cannot test without the pdo_sqlite extension');
         }
 
@@ -38,7 +38,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
         $dbConfig = [
             'db' => [
                 'driver' => 'Pdo',
-                'dsn'    => sprintf('sqlite:%s', getenv('TESTS_ZEND_DB_ADAPTER_DRIVER_SQLITE_DATABASE')),
+                'dsn'    => sprintf('sqlite:%s', getenv('TESTS_LAMINAS_DB_ADAPTER_DRIVER_SQLITE_DATABASE')),
             ],
         ];
 

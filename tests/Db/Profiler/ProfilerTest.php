@@ -5,8 +5,8 @@ namespace BjyProfilerTest\Db\Profiler;
 use BjyProfiler\Db\Profiler\Profiler;
 use BjyProfiler\Db\Profiler\Query;
 use BjyProfiler\Exception\RuntimeException;
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\Sql\Sql;
+use Laminas\Db\Adapter\Adapter;
+use Laminas\Db\Sql\Sql;
 
 class ProfilerTest extends \PHPUnit_Framework_TestCase
 {

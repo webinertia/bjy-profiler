@@ -1,13 +1,8 @@
 <?php
-/**
- * User: Vladimir Garvardt
- * Date: 4/22/13
- * Time: 5:54 PM
- */
 
 namespace BjyProfiler\Db\Profiler;
 
-use Zend\Log\Logger;
+use Laminas\Log\Logger;
 
 class LoggingProfiler extends Profiler
 {

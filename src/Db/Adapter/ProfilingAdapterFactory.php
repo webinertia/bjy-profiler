@@ -1,15 +1,11 @@
 <?php
-/**
- * Created by Inditel Meedia OÜ
- * User: Oliver Leisalu
- */
 
 namespace BjyProfiler\Db\Adapter;
 
 use BjyProfiler\Db\Profiler;
 use Interop\Container\ContainerInterface;
-use Zend\Log;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Log;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class ProfilingAdapterFactory implements FactoryInterface
 {

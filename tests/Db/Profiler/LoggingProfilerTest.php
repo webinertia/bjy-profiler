@@ -4,7 +4,7 @@ namespace BjyProfilerTest\Db\Profiler;
 
 use BjyProfiler\Db\Profiler\LoggingProfiler;
 use BjyProfiler\Db\Profiler\Profiler;
-use Zend\Log;
+use Laminas\Log;
 
 class LoggingProfilerTest extends \PHPUnit_Framework_TestCase
 {

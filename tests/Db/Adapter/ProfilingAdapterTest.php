@@ -3,7 +3,7 @@
 namespace BjyProfilerTest\Db\Adapter;
 
 use BjyProfiler\Db\Adapter\ProfilingAdapter;
-use Zend\Db\Adapter\Adapter;
+use Laminas\Db\Adapter\Adapter;
 
 class ProfilingAdapterTest extends \PHPUnit_Framework_TestCase
 {

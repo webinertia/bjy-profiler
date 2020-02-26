@@ -4,7 +4,7 @@ namespace BjyProfilerTest;
 
 use BjyProfiler\ConfigProvider;
 use BjyProfiler\Db\Adapter\ProfilingAdapterFactory;
-use Zend\Db\Adapter\AdapterInterface;
+use Laminas\Db\Adapter\AdapterInterface;
 
 class ConfigProviderTest extends \PHPUnit_Framework_TestCase
 {
