@@ -27,7 +27,13 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.1"
+        "php": "^8.0 || ^8.1"
+    },
+    "extra": {
+        "laminas": {
+            "component": "Webinertia\\BjyProfiler",
+            "config-provider": "Webinertia\\BjyProfiler\\ConfigProvider"
+        }
     },
     "autoload": {
         "psr-4": {
