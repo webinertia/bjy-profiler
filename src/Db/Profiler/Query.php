@@ -1,8 +1,8 @@
 <?php
 
-namespace BjyProfiler\Db\Profiler;
+namespace Webinertia\BjyProfiler\Db\Profiler;
 
-use BjyProfiler\Exception\RuntimeException;
+use Webinertia\BjyProfiler\Exception\RuntimeException;
 
 class Query
 {

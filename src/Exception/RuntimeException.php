@@ -1,6 +1,6 @@
 <?php
 
-namespace BjyProfiler\Exception;
+namespace Webinertia\BjyProfiler\Exception;
 
 use Laminas\Stdlib\Exception\RuntimeException as LaminasStdlibRuntimeException;
 

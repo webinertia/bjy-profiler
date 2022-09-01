@@ -1,8 +1,8 @@
 <?php
 
-namespace BjyProfiler\Db\Profiler;
+namespace Webinertia\BjyProfiler\Db\Profiler;
 
-use BjyProfiler\Exception\RuntimeException;
+use Webinertia\BjyProfiler\Exception\RuntimeException;
 use Laminas\Db\Adapter\Profiler\ProfilerInterface;
 use Laminas\Db\Adapter\StatementContainerInterface;
 
