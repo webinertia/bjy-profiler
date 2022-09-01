@@ -26,8 +26,12 @@
             "homepage": "https://rafallinca.pl"
         }
     ],
+    "suggest": {
+        "laminas/laminas-component-installer" : "^3.0.1, required for configuration injection"
+    },
     "require": {
-        "php": "^8.0 || ^8.1"
+        "php": "^8.0 || ^8.1",
+        "laminas/laminas-component-installer" : "^3.0.1"
     },
     "extra": {
         "laminas": {
