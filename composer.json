@@ -43,5 +43,10 @@
         "psr-4": {
             "Webinertia\\BjyProfiler\\": "src/"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "laminas/laminas-component-installer": true
+        }
     }
 }
