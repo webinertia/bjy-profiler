@@ -1,14 +1,14 @@
 <?php
 
-namespace Webinertia\BjyProfiler;
+namespace BjyProfiler;
 
-use Webinertia\BjyProfiler\Db\Adapter\ProfilingAdapterFactory;
+use BjyProfiler\Db\Adapter\ProfilingAdapterFactory;
 use Laminas\Db\Adapter\AdapterInterface;
 
 class ConfigProvider
 {
     /**
-     * Retrieve Webinertia\BjyProfiler default configuration.
+     * Retrieve BjyProfiler default configuration.
      *
      * @return array
      */
@@ -20,7 +20,7 @@ class ConfigProvider
     }
 
     /**
-     * Retrieve Webinertia\BjyProfiler default dependency configuration.
+     * Retrieve BjyProfiler default dependency configuration.
      *
      * @return array
      */

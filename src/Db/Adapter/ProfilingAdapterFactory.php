@@ -1,8 +1,8 @@
 <?php
 
-namespace Webinertia\BjyProfiler\Db\Adapter;
+namespace BjyProfiler\Db\Adapter;
 
-use Webinertia\BjyProfiler\Db\Profiler;
+use BjyProfiler\Db\Profiler;
 use Interop\Container\ContainerInterface;
 use Laminas\Log;
 use Laminas\ServiceManager\Factory\FactoryInterface;

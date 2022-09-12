@@ -1,6 +1,6 @@
 <?php
 
-namespace Webinertia\BjyProfiler\Db\Profiler;
+namespace BjyProfiler\Db\Profiler;
 
 use Laminas\Log\Logger;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webinertia\BjyProfiler;
+namespace BjyProfiler;
 
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 

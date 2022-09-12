@@ -1,6 +1,6 @@
 <?php
 
-namespace Webinertia\BjyProfiler\Db\Adapter;
+namespace BjyProfiler\Db\Adapter;
 
 use Laminas\Db\Adapter\Adapter;
 
