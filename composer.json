@@ -48,5 +48,10 @@
         "allow-plugins": {
             "laminas/laminas-component-installer": true
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "laminas/laminas-component-installer": true
+        }
     }
 }
