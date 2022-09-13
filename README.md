@@ -1,3 +1,9 @@
+Important
+===========
+You must be running php >= 8.0 to use this package.
+So far the only changes have been updating the package so that it installs for php 8.1 and updating
+return types and syntax for 8.0
+
 BjyProfiler
 ===========
 
@@ -12,7 +18,7 @@ Composer/Packagist Users
 ========================
 
 ```console
-composer require --dev rafalli/bjy-profiler
+composer require --dev webinertia/bjy-profiler
 ```
 
 Configuration & Usage

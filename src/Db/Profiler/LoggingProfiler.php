@@ -1,18 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BjyProfiler\Db\Profiler;
 
 use Laminas\Log\Logger;
 
-class LoggingProfiler extends Profiler
+use function array_flip;
+use function array_intersect_key;
+use function array_shift;
+use function count;
+use function end;
+
+final class LoggingProfiler extends Profiler
 {
-    /**
-     * @var Logger
-     */
+    /** @var Logger $logger */
     protected $logger;
-    /**
-     * @var int
-     */
+    /** @var int $priority */
     protected $priority = Logger::DEBUG;
     /**
      * How many query profiles could be stored in memory.
@@ -21,31 +25,25 @@ class LoggingProfiler extends Profiler
      * 0 - do not store any profiles
      * N > 0 - store N profiles, discard when there are more than N
      *
-     * @var int
+     * @var int $maxProfiles
      */
     protected $maxProfiles = 100;
     /**
      * Query parameters to log on query start
      *
-     * @var array
+     * @var array<int, string> $parametersStart
      * @see Query
      */
     protected $parametersStart = ['sql', 'parameters'];
     /**
      * Query parameters to log on query finish
      *
-     * @var array
+     * @var array<int, string> $parametersFinish
      * @see Query
      */
     protected $parametersFinish = ['elapsed'];
 
-    /**
-     * LoggingProfiler constructor.
-     * @param Logger $logger
-     * @param bool   $enabled
-     * @param array  $options
-     */
-    public function __construct(Logger $logger, $enabled = true, array $options = [])
+    public function __construct(Logger $logger, bool $enabled = true, array $options = [])
     {
         parent::__construct($enabled);
         $this->setLogger($logger);
@@ -64,29 +62,23 @@ class LoggingProfiler extends Profiler
         }
     }
 
-    /**
-     * @param string $sql
-     * @param null   $parameters
-     * @param null   $stack
-     * @return int|bool
-     */
-    public function startQuery($sql, $parameters = null, $stack = null) {
+    public function startQuery(string $sql, ?array $parameters = null, ?array $stack = null): int|bool
+    {
         $result = parent::startQuery($sql, $parameters, $stack);
         $this->logStart();
         return $result;
     }
 
-    /**
-     * @return bool
-     */
-    public function endQuery() {
+    public function endQuery(): bool
+    {
         $result = parent::endQuery();
         $this->logEnd();
         $this->trimToMaxQueries();
         return $result;
     }
 
-    private function logStart() {
+    private function logStart(): void
+    {
         /** @var Query $lastQuery */
         $lastQuery = end($this->profiles);
         $this->getLogger()->log(
@@ -96,7 +88,8 @@ class LoggingProfiler extends Profiler
         );
     }
 
-    private function logEnd() {
+    private function logEnd(): void
+    {
         /** @var Query $lastQuery */
         $lastQuery = end($this->profiles);
         $this->getLogger()->log(
@@ -106,100 +99,65 @@ class LoggingProfiler extends Profiler
         );
     }
 
-    private function trimToMaxQueries() {
+    private function trimToMaxQueries(): void
+    {
         $maxProfiles = $this->getMaxProfiles();
         if ($maxProfiles > -1 && count($this->profiles) > $maxProfiles) {
             array_shift($this->profiles);
         }
     }
 
-    /**
-     * @param int $level
-     * @return static
-     */
-    public function setPriority($level)
+    public function setPriority(int $level): self
     {
         $this->priority = $level;
-
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getPriority()
+    public function getPriority(): int
     {
         return $this->priority;
     }
 
-    /**
-     * @param Logger $logger
-     * @return static
-     */
-    public function setLogger(Logger $logger)
+    public function setLogger(Logger $logger): self
     {
         $this->logger = $logger;
         return $this;
     }
 
-    /**
-     * @return Logger
-     */
-    public function getLogger()
+    public function getLogger(): Logger
     {
         return $this->logger;
     }
 
-    /**
-     * @param int $maxProfiles
-     * @return static
-     */
-    public function setMaxProfiles($maxProfiles)
+    public function setMaxProfiles(int $maxProfiles): self
     {
         $this->maxProfiles = $maxProfiles;
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getMaxProfiles()
+    public function getMaxProfiles(): int
     {
         return $this->maxProfiles;
     }
 
-    /**
-     * @param array $parametersFinish
-     * @return static
-     */
-    public function setParametersFinish(array $parametersFinish)
+    public function setParametersFinish(array $parametersFinish): self
     {
         $this->parametersFinish = $parametersFinish;
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getParametersFinish()
+    public function getParametersFinish(): array
     {
         return $this->parametersFinish;
     }
 
-    /**
-     * @param array $parametersStart
-     * @return static
-     */
-    public function setParametersStart(array $parametersStart)
+    public function setParametersStart(array $parametersStart): self
     {
         $this->parametersStart = $parametersStart;
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getParametersStart()
+    public function getParametersStart(): array
     {
         return $this->parametersStart;
     }

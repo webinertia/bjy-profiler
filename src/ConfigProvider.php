@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BjyProfiler;
 
 use BjyProfiler\Db\Adapter\ProfilingAdapterFactory;
 use Laminas\Db\Adapter\AdapterInterface;
 
-class ConfigProvider
+final class ConfigProvider
 {
     /**
      * Retrieve BjyProfiler default configuration.
-     *
-     * @return array
      */
-    public function __invoke()
+    public function __invoke(): array
     {
         return [
             'dependencies' => $this->getDependencyConfig(),
@@ -21,10 +21,8 @@ class ConfigProvider
 
     /**
      * Retrieve BjyProfiler default dependency configuration.
-     *
-     * @return array
      */
-    public function getDependencyConfig()
+    public function getDependencyConfig(): array
     {
         return [
             'factories' => [

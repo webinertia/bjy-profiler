@@ -1,17 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BjyProfiler;
 
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 
-class Module implements ConfigProviderInterface
+final class Module implements ConfigProviderInterface
 {
     /**
      * Retrieve default configuration for zend-mvc context.
-     *
-     * @return array
      */
-    public function getConfig()
+    public function getConfig(): array
     {
         $provider = new ConfigProvider();
         return [

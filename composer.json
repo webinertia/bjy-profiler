@@ -8,7 +8,7 @@
         "db",
         "profiler"
     ],
-    "homepage": "https://github.com/rafalli/BjyProfiler",
+    "homepage": "https://github.com/webinertia/BjyProfiler",
     "authors": [
         {
             "name": "Ben Youngblood",
@@ -26,11 +26,8 @@
             "homepage": "https://rafallinca.pl"
         }
     ],
-    "suggest": {
-        "laminas/laminas-component-installer" : "^2.8.0, required for configuration injection"
-    },
     "require": {
-        "php": "^8.0 || ^8.1",
+        "php": "^8.0 | ^8.1",
         "laminas/laminas-component-installer" : "^2.8.0"
     },
     "extra": {
@@ -42,11 +39,6 @@
     "autoload": {
         "psr-4": {
             "BjyProfiler\\": "src/"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "laminas/laminas-component-installer": true
         }
     },
     "config": {

@@ -1,42 +1,46 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BjyProfiler\Db\Profiler;
 
 use BjyProfiler\Exception\RuntimeException;
 use Laminas\Db\Adapter\Profiler\ProfilerInterface;
 use Laminas\Db\Adapter\StatementContainerInterface;
 
-class Profiler implements ProfilerInterface
+use function debug_backtrace;
+use function end;
+use function key;
+use function ltrim;
+use function phpversion;
+use function substr;
+use function strtolower;
+use function version_compare;
+
+use const DEBUG_BACKTRACE_IGNORE_ARGS;
+
+final class Profiler implements ProfilerInterface
 {
     /**
      * Logical OR these together to get a proper query type filter
      */
-    const CONNECT = 1;
-    const QUERY = 2;
-    const INSERT = 4;
-    const UPDATE = 8;
-    const DELETE = 16;
-    const SELECT = 32;
-    const TRANSACTION = 64;
+    public const CONNECT     = 1;
+    public const QUERY       = 2;
+    public const INSERT      = 4;
+    public const UPDATE      = 8;
+    public const DELETE      = 16;
+    public const SELECT      = 32;
+    public const TRANSACTION = 64;
 
-    /**
-     * @var Query[]
-     */
+    /** @var Query[] $profiles */
     protected $profiles = [];
-
-    /**
-     * @var boolean
-     */
+    /** @var bool $enabled */
     protected $enabled;
-
-    /**
-     * @var int
-     */
+    /** @var int $filterTypes */
     protected $filterTypes;
-
     /**
-     * Profiler constructor.
      * @param bool $enabled
+     * @return void
      */
     public function __construct($enabled = true)
     {
@@ -44,49 +48,30 @@ class Profiler implements ProfilerInterface
         $this->filterTypes = 127;
     }
 
-    /**
-     * @return static
-     */
-    public function enable()
+    public function enable(): self
     {
         $this->enabled = true;
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function disable()
+    public function disable(): self
     {
         $this->enabled = false;
         return $this;
     }
 
-    /**
-     * @param int $queryTypes
-     * @return static
-     */
-    public function setFilterQueryType($queryTypes = null)
+    public function setFilterQueryType(?int $queryTypes = null): self
     {
         $this->filterTypes = $queryTypes;
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getFilterQueryType()
+    public function getFilterQueryType(): int
     {
         return $this->filterTypes;
     }
 
-    /**
-     * @param string     $sql
-     * @param array|null $parameters
-     * @param array|null $stack
-     * @return int|bool
-     */
-    public function startQuery($sql, $parameters = null, $stack = null)
+    public function startQuery(string $sql, ?array $parameters = null, ?array $stack = null): int|bool
     {
         if (! $this->enabled) {
             return false;
@@ -127,10 +112,7 @@ class Profiler implements ProfilerInterface
         return key($this->profiles);
     }
 
-    /**
-     * @return bool
-     */
-    public function endQuery()
+    public function endQuery(): bool
     {
         if (! $this->enabled) {
             return false;
@@ -145,10 +127,9 @@ class Profiler implements ProfilerInterface
     }
 
     /**
-     * @param int|null $queryTypes
      * @return Query[]
      */
-    public function getQueryProfiles($queryTypes = null)
+    public function getQueryProfiles(?int $queryTypes = null)
     {
         if (empty($this->profiles)) {
             return [];
@@ -171,9 +152,8 @@ class Profiler implements ProfilerInterface
 
     /**
      * @param string|StatementContainerInterface $target
-     * @return static
      */
-    public function profilerStart($target)
+    public function profilerStart($target): self
     {
         if ($target instanceof StatementContainerInterface) {
             $sql = $target->getSql();
@@ -186,10 +166,7 @@ class Profiler implements ProfilerInterface
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function profilerFinish()
+    public function profilerFinish(): self
     {
         $this->endQuery();
         return $this;
