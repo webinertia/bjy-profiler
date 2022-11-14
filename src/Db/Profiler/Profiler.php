@@ -19,7 +19,7 @@ use function version_compare;
 
 use const DEBUG_BACKTRACE_IGNORE_ARGS;
 
-final class Profiler implements ProfilerInterface
+class Profiler implements ProfilerInterface
 {
     /**
      * Logical OR these together to get a proper query type filter
