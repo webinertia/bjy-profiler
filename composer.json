@@ -28,7 +28,7 @@
     ],
     "require": {
         "php": "^8.0 | ^8.1",
-        "laminas/laminas-component-installer" : "^2.8.0"
+        "laminas/laminas-component-installer" : "^3.0.0"
     },
     "extra": {
         "laminas": {
