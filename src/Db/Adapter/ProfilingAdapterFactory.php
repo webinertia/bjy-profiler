@@ -15,8 +15,7 @@ final class ProfilingAdapterFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ProfilingAdapter
     {
-        $config = $container->get('Configuration');
-        $adapter = new $requestedName($config['db']);
+        $adapter = new ProfilingAdapter($container->get('config')['db']);
 
         if ('cli' === PHP_SAPI) {
             $logger = new Log\Logger();
