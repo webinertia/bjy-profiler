@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BjyProfiler;
 
-use BjyProfiler\Db\Adapter\ProfilingAdapterFactory;
 use Laminas\Db\Adapter\AdapterInterface;
 
 final class ConfigProvider
@@ -26,7 +25,7 @@ final class ConfigProvider
     {
         return [
             'factories' => [
-                AdapterInterface::class => ProfilingAdapterFactory::class,
+                AdapterInterface::class => Db\Adapter\ProfilingAdapterFactory::class,
             ],
         ];
     }

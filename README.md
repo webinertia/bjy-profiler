@@ -15,6 +15,7 @@ Note: this module now works with Laminas\Db's built-in profiler.
 **Note**: PHP >= 5.5 is required for stack traces with query profiles.
 
 Composer/Packagist Users
+
 ========================
 
 ```console
@@ -22,8 +23,10 @@ composer require --dev webinertia/bjy-profiler
 ```
 
 Configuration & Usage
+
 ---------------------
 Add `BjyProfiler` to your `development.config.php` in section `modules`, example:
+
 ```php
 return [
     // Additional modules to include when in development mode
@@ -39,7 +42,6 @@ return [
     ],
 ];
 ```
-
 
 ```php
 $profiler = $sl->get('Laminas\Db\Adapter\Adapter')->getProfiler();
